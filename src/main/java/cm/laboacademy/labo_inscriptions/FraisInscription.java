@@ -3,6 +3,10 @@ package cm.laboacademy.inscriptions;
 public class FraisInscription {
 
     public int calculer(String niveau, boolean boursier) {
+        return calculer(niveau, boursier, false);
+    }
+
+    public int calculer(String niveau, boolean boursier, boolean avantDateLimite) {
         if (niveau == null) {
             throw new IllegalArgumentException("Niveau manquant");
         }
@@ -11,6 +15,10 @@ public class FraisInscription {
             case "M1", "M2" -> 75000;
             default -> throw new IllegalArgumentException("Niveau inconnu : " + niveau);
         };
-        return boursier ? base / 2 : base;
+        int frais = boursier ? base / 2 : base;
+        if (avantDateLimite) {
+            frais = frais * 90 / 100;
+        }
+        return frais;
     }
 }
